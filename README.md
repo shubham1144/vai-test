@@ -2,7 +2,9 @@
 
 Note:
 ```
-Please note that the db current points to online mongo instance/i would suggest to use your local mongodb to test the implementation
+Please note that the mongodb currentlu used points to online mongo instance which is free, as the instance is free, the performance will not be that great, might takes around 6-8 seconds to initially conenct to database
+
+For best results, i would suggest to use your local mongodb to test the implementation
 Please make the required change in dao/dao.js for mongodb connection string
 ```
 
