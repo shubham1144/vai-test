@@ -34,7 +34,7 @@ async function getNonLexicalModelData(callback){
 
         }catch(err) {
             console.log("Error occured due to :", err);
-
+            callback("Database Connection Error");
         }
     }
     if(connection) {
@@ -94,4 +94,38 @@ const initializeData = (callback) => {
         });
 }
 
-module.exports = getNonLexicalModelData;
+/**
+ * Function to be used to register a non lexical value in the database
+ * @param nonLexicalValue
+ * @param callback
+ * @returns {Promise<void>}
+ */
+async function addNonLexicalModelData(nonLexicalValue, callback){
+    const addData = async () => {
+        try{
+            if(connection) {
+                let result = await NonLexical
+                    .create({ value : nonLexicalValue})
+                    .then(function (data) {
+                        console.log("Inserts for demo successfully complete");
+                        callback && callback();
+                    })
+                    .catch(function (err) {
+                        console.error("Error occured due to : ", err);
+                    });
+            }
+
+        } catch(err) {
+            console.log("Error occured due to :", err);
+            callback("Database Connection Error")
+        }
+    }
+    if(connection) {
+        addData();
+    } else {
+        connectToMongoDb(addData);
+    }
+};
+
+exports.getNonLexicalModelData = getNonLexicalModelData;
+exports.addNonLexicalModelData = addNonLexicalModelData;
